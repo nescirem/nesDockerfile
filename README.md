@@ -1,6 +1,12 @@
 # nesDockerfile
 
-这个代码库旨在帮助工程师们快速实现多平台MPI与opneMP的混合并行开发。当然，你只用MPI也没问题的啦。
+这个代码库旨在帮助工程师们快速构建多平台MPI与opneMP的混合并行仿真软件开发环境。当然，你只用MPI也没问题的啦。请根据需要选择相应docker镜像。
+
+|_directory_            | c++&fortran | mpich&openmpi | cgns |
+|:----------------------|:-----------:|:-------------:|:----:|
+|fortran_mpi_openmp     |     :o:     |       :o:     |  :x: |
+|fortran_mpi_openmp_cgns|     :o:     |       :o:     |  :o: |
+
 
 > 你还在折腾那恼人的环境配置吗？你还在为开发平台不同导致的软件无法正常运行而头疼吗？
 >

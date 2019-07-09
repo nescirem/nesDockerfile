@@ -30,8 +30,8 @@ RUN yum clean all
 # RUN export PATH=/usr/lib64/openmpi/bin/:${PATH}
 # RUN module load mpi/openmpi-x86_64
 # elseif mpich
-export PATH=/usr/lib64/mpich/bin/:${PATH}
-module load mpi/mpich-x86_64
+RUN export PATH=/usr/lib64/mpich/bin/:${PATH}
+RUN module load mpi/mpich-x86_64
 
 # copy local test codes into the docker image
 COPY . /home/programing
