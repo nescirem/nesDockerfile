@@ -11,8 +11,12 @@ RUN dnf install -y gcc gcc-c++
 RUN dnf install -y gcc-gfortran gdb make cmake vim wget
 RUN dnf install -y openmpi openmpi-devel
 RUN dnf install -y mpich mpich-devel
-RUN dnf install -y cgnslib cgnslib-devel
+RUN dnf install -y redhat-rpm-config
 RUN dnf clean all
+
+# download cgns3.2.1
+WORKDIR /home
+RUN wget --no-check-certificate https://github.com/CGNS/CGNS/archive/v3.2.1.tar.gz
 
 # copy local test codes into the docker image
 COPY . /home/programing
@@ -21,4 +25,5 @@ WORKDIR /home/programing
 # if openmpi
 ##CMD sed '$aexport PATH=/usr/lib64/openmpi/bin:$PATH' ~/.bashrc && source ~/.bashrc
 # elseif mpich
-CMD sed '$aexport PATH=/usr/lib64/mpich/bin:$PATH' ~/.bashrc && source ~/.bashrc
+RUN sed -i '$aexport PATH=/usr/lib64/mpich/bin:$PATH' ~/.bashrc 
+CMD source ~/.bashrc

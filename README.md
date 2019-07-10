@@ -2,10 +2,10 @@
 
 这个代码库旨在帮助工程师们快速构建多平台MPI与opneMP的混合并行仿真软件开发环境。当然，你只用MPI也没问题的啦。请根据需要选择相应docker镜像。
 
-| _directory_             |   base |  tag  | mpich&openmpi  | cgns  |
-| :---------------------- | :----: | :---: | :------------: | :---: |
-| fortran_mpi_openmp      | centos7| mpich | 3.0.4 & 1.10.7 |       |
-| fortran_mpi_openmp_cgns |fedora31|  0.1  | 3.0.4 & 1.10.7 | 3.2.1 |
+| _directory_             |   base   |  tag  | mpich&openmpi  | cgns  |
+| :---------------------- | :------: | :---: | :------------: | :---: |
+| fortran_mpi_openmp      | centos7  | mpich | 3.0.4 & 1.10.7 |       |
+| fortran_mpi_openmp_cgns | fedora31 |  0.1  | 3.0.4 & 1.10.7 | 3.2.1 |
 
 
 > 你还在折腾那恼人的环境配置吗？你还在为同个团队各个成员开发平台不同导致的软件无法正常运行而头疼吗？
@@ -45,8 +45,7 @@
 
 ## 基本使用
 
-将宿主机目录挂载到容器并启动（举例）：`docker container run -it -v /d/nesDocker/fortran_mpi_o
-penmp:/home/test fortran_mpi_omp /bin/bash`
+将宿主机目录挂载到容器并启动（举例）：`docker container run -it -v /d/nesDocker/fortran_mpi_openmp:/home/test fortran_mpi_omp /bin/bash`
 
 列出当前使用镜像：`docker image ls`
 
@@ -72,11 +71,13 @@ penmp:/home/test fortran_mpi_omp /bin/bash`
 docker pull registry.cn-hangzhou.aliyuncs.com/nes_docker/fortran_mpi_omp:[tag]
 ```
 
-你的机器若无法联网：请先在能联网的机器上打包镜像文件（举个例子）并压缩：
+你的机器若无法联网：请先在能联网的机器上下载-重命名-打包镜像文件（举个例子）并压缩：
 
 ```bash
 docker pull registry.cn-hangzhou.aliyuncs.com/nes_docker/fortran_mpi_omp:0.1
-docker save -o fortran_mpi_omp_cgns.tar fortran_mpi_omp:0.1
+docker tag registry.cn-hangzhou.aliyuncs.com/nes_docker/fortran_mpi_omp:0.1 fortran_mpi_omp_cgns:latest
+docker rmi registry.cn-hangzhou.aliyuncs.com/nes_docker/fortran_mpi_omp:0.1
+docker save -o fortran_mpi_omp_cgns.tar fortran_mpi_omp_cgns:latest
 gzip fortran_mpi_omp_cgns.tar
 ```
 
