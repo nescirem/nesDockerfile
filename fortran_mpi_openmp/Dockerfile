@@ -7,11 +7,11 @@ MAINTAINER nescirem <nescirem@gmail.com>
 # yum mirror for mainland China user
 WORKDIR /etc/yum.repos.d
 RUN mv CentOS-Base.repo CentOS-Base.repo.bak
-RUN curl https://nesic.site/ftp/Linux/sources/CentOS-Base.repo >CentOS-Base.repo
+RUN curl -k https://nesic.site/ftp/Linux/sources/CentOS-Base.repo >CentOS-Base.repo
 
 # resolve GPG key warning
 WORKDIR /etc/pki/rpm-gpg
-RUN curl http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-7 > RPM-GPG-KEY-CentOS-7
+RUN curl -k http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-7 > RPM-GPG-KEY-CentOS-7
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 
 # install dependencies
@@ -30,6 +30,6 @@ COPY . /home/programing
 WORKDIR /home/programing
 
 # if openmpi
-# CMD export PATH=/usr/lib64/openmpi/bin/:${PATH} && module load mpi/openmpi-x86_64
+##CMD sed '$aexport PATH=/usr/lib64/openmpi/bin:$PATH' ~/.bashrc && source ~/.bashrc
 # elseif mpich
-CMD export PATH=/usr/lib64/mpich/bin/:${PATH} && module load mpi/mpich-x86_64
+CMD sed '$aexport PATH=/usr/lib64/mpich/bin:$PATH' ~/.bashrc && source ~/.bashrc

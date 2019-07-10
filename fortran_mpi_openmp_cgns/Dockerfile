@@ -4,14 +4,6 @@
 FROM fedora:31
 MAINTAINER nescirem <nescirem@gmail.com>
 
-# yum mirror for mainland China user
-WORKDIR /etc/yum.repos.d
-RUN mv fedora.repo fedora.repo.bak
-RUN mv fedora-updates.repo fedora-updates.repo.bak
-RUN curl -k https://nesic.site/ftp/Linux/sources/fedora.repo > fedora.repo
-RUN curl -k https://nesic.site/ftp/Linux/sources/fedora-updates.repo > fedora-updates.repo
-
-
 # install dependencies
 RUN dnf clean all && dnf update -y --releasever=31
 RUN dnf install -y glibc-langpack-en
@@ -27,6 +19,6 @@ COPY . /home/programing
 WORKDIR /home/programing
 
 # if openmpi
-# CMD export PATH=/usr/lib64/openmpi/bin/:${PATH}
+##CMD sed '$aexport PATH=/usr/lib64/openmpi/bin:$PATH' ~/.bashrc && source ~/.bashrc
 # elseif mpich
-CMD export PATH=/usr/lib64/mpich/bin/:${PATH}
+CMD sed '$aexport PATH=/usr/lib64/mpich/bin:$PATH' ~/.bashrc && source ~/.bashrc
